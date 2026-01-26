@@ -8,7 +8,7 @@ describe('Accessibility', () => {
   let document;
 
   beforeEach(() => {
-    const html = readFileSync(resolve(process.cwd(), 'public/index.html'), 'utf-8');
+    const html = readFileSync(resolve(process.cwd(), 'index.html'), 'utf-8');
     dom = new JSDOM(html);
     document = dom.window.document;
   });

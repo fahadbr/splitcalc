@@ -11,7 +11,7 @@ describe('Persistence load on boot', () => {
 
   beforeEach(() => {
     // Load HTML
-    const html = readFileSync(resolve(process.cwd(), 'public/index.html'), 'utf-8');
+    const html = readFileSync(resolve(process.cwd(), 'index.html'), 'utf-8');
     dom = new JSDOM(html, {
       url: 'http://localhost',
       runScripts: 'outside-only'

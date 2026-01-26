@@ -25,7 +25,7 @@ npm install
 npm run dev
 ```
 
-Then open http://localhost:8000 in your browser.
+Then open http://localhost:8000/index.html in your browser.
 
 ### Testing
 
@@ -78,24 +78,40 @@ This is a **no-build** frontend-only PWA:
 ### File Structure
 
 ```
-/public         - Static assets served directly
-  index.html    - Main HTML
-  styles.css    - App styles
-  app.js        - Entry point
-  sw.js         - Service Worker
+/                - Root directory (GitHub Pages serves from here)
+  index.html     - Main HTML
+  styles.css     - App styles
+  app.js         - Entry point
+  sw.js          - Service Worker
   manifest.webmanifest - PWA manifest
-  /icons        - App icons
+  /icons         - App icons
 
-/src            - Application code (ES modules)
-  /domain       - Domain logic (distances, splits)
-  /engine       - Calculation engine
-  /state        - State management
-  /ui           - UI rendering and events
-  /persistence  - localStorage utilities
-  app.js        - App initialization
+/src             - Application code (ES modules)
+  /domain        - Domain logic (distances, splits)
+  /engine        - Calculation engine
+  /state         - State management
+  /ui            - UI rendering and events
+  /persistence   - localStorage utilities
+  app.js         - App initialization
 
-/test           - Test files
+/test            - Test files
 ```
+
+## Deployment
+
+### GitHub Pages
+
+This app is configured for GitHub Pages deployment:
+
+1. Push your code to GitHub
+2. Go to repository Settings → Pages
+3. Set:
+   - **Source**: Deploy from a branch
+   - **Branch**: `main`
+   - **Folder**: `/` (root)
+4. Your app will be live at: `https://yourusername.github.io/reponame/`
+
+The app works offline after first load thanks to the Service Worker.
 
 ## Browser Support
 
