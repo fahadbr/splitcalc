@@ -126,7 +126,7 @@ function createInputRow(split, state, dispatch) {
     type: 'text',
     placeholder: 'MM:SS',
     value: paceValue,
-    inputmode: 'numeric',
+    inputmode: 'text',
     dataset: { splitId: split.id }
   });
 
