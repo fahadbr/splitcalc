@@ -3,4 +3,4 @@
  * Imports the main app module
  */
 
-import '../src/app.js';
+import './src/app.js';
