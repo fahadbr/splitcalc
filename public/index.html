@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Split Calc">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#2563eb">
+  <title>Running Split Calculator</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="manifest" href="manifest.webmanifest">
+</head>
+<body>
+  <header>
+    <h1>Running Split Calculator</h1>
+  </header>
+
+  <main>
+    <section class="inputs-section">
+      <h2>Inputs</h2>
+
+      <div class="controls-group">
+        <div class="control">
+          <label for="distance-preset">Distance</label>
+          <select id="distance-preset" name="distance-preset">
+            <option value="5K">5K</option>
+            <option value="10K">10K</option>
+            <option value="Half">Half Marathon</option>
+            <option value="Full">Full Marathon</option>
+            <option value="Custom">Custom</option>
+          </select>
+        </div>
+
+        <div class="control">
+          <label for="custom-distance">Custom Distance</label>
+          <input
+            type="number"
+            id="custom-distance"
+            name="custom-distance"
+            min="0.1"
+            step="0.1"
+            disabled
+            inputmode="decimal">
+        </div>
+
+        <div class="control">
+          <label for="unit">Unit</label>
+          <select id="unit" name="unit">
+            <option value="km">Kilometers (km)</option>
+            <option value="mi">Miles (mi)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="controls-group">
+        <div class="control">
+          <label for="goal-hours">Goal Time - Hours</label>
+          <input
+            type="number"
+            id="goal-hours"
+            name="goal-hours"
+            min="0"
+            step="1"
+            value="0"
+            inputmode="numeric">
+        </div>
+
+        <div class="control">
+          <label for="goal-minutes">Goal Time - Minutes</label>
+          <input
+            type="number"
+            id="goal-minutes"
+            name="goal-minutes"
+            min="0"
+            max="59"
+            step="1"
+            value="0"
+            inputmode="numeric">
+        </div>
+
+        <div class="control">
+          <label for="goal-seconds">Goal Time - Seconds</label>
+          <input
+            type="number"
+            id="goal-seconds"
+            name="goal-seconds"
+            min="0"
+            max="59"
+            step="1"
+            value="0"
+            inputmode="numeric">
+        </div>
+      </div>
+
+      <div class="controls-group">
+        <div class="control">
+          <label for="strategy">Strategy</label>
+          <select id="strategy" name="strategy">
+            <option value="even">Even pace</option>
+            <option value="linear-negative">Linear negative split</option>
+            <option value="linear-positive">Linear positive split</option>
+            <option value="weighted">Weighted exponential</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="message-area" id="error-message" role="alert" aria-live="polite"></div>
+      <div class="message-area warning" id="dirty-warning" role="status" aria-live="polite"></div>
+
+      <div class="button-group">
+        <button type="button" id="calculate-btn" class="primary">Calculate</button>
+        <button type="button" id="copy-btn">Copy results to input</button>
+        <button type="button" id="clear-btn">Clear input table</button>
+      </div>
+    </section>
+
+    <section class="tables-section">
+      <div class="table-container">
+        <div class="table-wrapper">
+          <h3>Input Table</h3>
+          <div id="input-table-root"></div>
+        </div>
+
+        <div class="table-wrapper">
+          <h3>Results</h3>
+          <div id="results-table-root"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
