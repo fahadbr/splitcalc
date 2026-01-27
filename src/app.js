@@ -21,6 +21,13 @@ let splits = [];
 function dispatch(action) {
   state = applyAction(state, action);
   splits = deriveSplits(state);
+
+  // Skip re-render for input changes - the input already has the value
+  // This prevents focus loss and cursor jumping during typing
+  if (action.type === 'SET_PACE_INPUT' || action.type === 'SET_GOAL_TIME_FIELD') {
+    return;
+  }
+
   render(state, splits, dispatch);
 }
 
