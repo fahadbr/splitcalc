@@ -98,17 +98,17 @@ function renderInputTable(state, splits, dispatch) {
   containers.inputTableRoot.appendChild(table);
 
   // Restore focus and cursor position after re-render
-  if (focusedSplitId) {
-    const inputToFocus = containers.inputTableRoot.querySelector(
-      `input[data-split-id="${focusedSplitId}"]`
-    );
-    if (inputToFocus) {
-      inputToFocus.focus();
-      if (selectionStart !== null && selectionEnd !== null) {
-        inputToFocus.setSelectionRange(selectionStart, selectionEnd);
-      }
-    }
-  }
+  // if (focusedSplitId) {
+  //   const inputToFocus = containers.inputTableRoot.querySelector(
+  //     `input[data-split-id="${focusedSplitId}"]`
+  //   );
+  //   if (inputToFocus) {
+  //     inputToFocus.focus();
+  //     if (selectionStart !== null && selectionEnd !== null) {
+  //       inputToFocus.setSelectionRange(selectionStart, selectionEnd);
+  //     }
+  //   }
+  // }
 }
 
 /**
