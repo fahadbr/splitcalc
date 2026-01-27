@@ -71,7 +71,7 @@ export function distributeLinear({ mode, blankIds, blankDistances, remainingSeco
   // Determine variance based on mode
   // negative split: faster toward end (pace decreases)
   // positive split: slower toward end (pace increases)
-  const variance = evenPace * 0.2; // 20% variation
+  const variance = evenPace * 0.1; // 10% variation
 
   const paces = [];
   for (let i = 0; i < n; i++) {
@@ -147,7 +147,7 @@ export function distributeWeighted({ blankIds, blankDistances, remainingSeconds,
   const evenPace = remainingSeconds / totalBlankDistance;
 
   // Apply weighted variance
-  const variance = evenPace * 0.3; // 30% max variation
+  const variance = evenPace * 0.1; // 10% max variation
   const totalWeight = weights.reduce((sum, w) => sum + w, 0);
 
   const paces = [];

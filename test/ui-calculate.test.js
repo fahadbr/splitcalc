@@ -47,7 +47,20 @@ describe('UI Calculate Button and Persistence', () => {
     initializeApp();
   });
 
-  it('should calculate and show results when Calculate button is clicked', () => {
+  it('should calculate and show results when Calculate button is clicked', async () => {
+    // Set unit to km
+    const unit = document.getElementById('unit');
+    unit.value = 'km';
+    unit.dispatchEvent(new window.Event('change', { bubbles: true }));
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+
+    // Set distance to 5K
+    const distancePreset = document.getElementById('distance-preset');
+    distancePreset.value = '5K';
+    distancePreset.dispatchEvent(new window.Event('change', { bubbles: true }));
+    await new Promise(resolve => setTimeout(resolve, 0));
+
     // Set up inputs
     const goalMinutes = document.getElementById('goal-minutes');
     goalMinutes.value = '25';
@@ -100,9 +113,22 @@ describe('UI Calculate Button and Persistence', () => {
     // This edge case validation is covered by the error handling in handleCalculate
   });
 
-  it('should persist state only when Calculate is pressed', () => {
+  it('should persist state only when Calculate is pressed', async () => {
     // Clear localStorage
     localStorage.clear();
+
+    // Set unit to km
+    const unit = document.getElementById('unit');
+    unit.value = 'km';
+    unit.dispatchEvent(new window.Event('change', { bubbles: true }));
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+
+    // Set distance to 5K
+    const distancePreset = document.getElementById('distance-preset');
+    distancePreset.value = '5K';
+    distancePreset.dispatchEvent(new window.Event('change', { bubbles: true }));
+    await new Promise(resolve => setTimeout(resolve, 0));
 
     // Change some inputs
     const goalMinutes = document.getElementById('goal-minutes');
@@ -124,8 +150,21 @@ describe('UI Calculate Button and Persistence', () => {
     expect(parsed.goalTime.m).toBe('25');
   });
 
-  it('should include pace inputs in persisted state', () => {
+  it('should include pace inputs in persisted state', async () => {
     localStorage.clear();
+
+    // Set unit to km
+    const unit = document.getElementById('unit');
+    unit.value = 'km';
+    unit.dispatchEvent(new window.Event('change', { bubbles: true }));
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+
+    // Set distance to 5K
+    const distancePreset = document.getElementById('distance-preset');
+    distancePreset.value = '5K';
+    distancePreset.dispatchEvent(new window.Event('change', { bubbles: true }));
+    await new Promise(resolve => setTimeout(resolve, 0));
 
     // Set goal time
     const goalMinutes = document.getElementById('goal-minutes');

@@ -47,7 +47,11 @@ describe('State management', () => {
 
   describe('applyAction - distance changes', () => {
     it('should update distance preset and regenerate splits', () => {
-      const state = { ...initialState };
+      const state = {
+        ...initialState,
+        distancePresetKey: '5K',
+        unit: 'km'
+      };
       const oldSplits = deriveSplits(state);
 
       expect(oldSplits).toHaveLength(5); // 5K
@@ -182,7 +186,7 @@ describe('State management', () => {
       expect(newState.goalTime.m).toBe(30);
     });
 
-    it('should mark dirty when goal time changes and results exist', () => {
+    it('should NOT mark dirty when goal time changes (dirty flag set on blur)', () => {
       const state = {
         ...initialState,
         results: { rows: [] }
@@ -193,7 +197,7 @@ describe('State management', () => {
         payload: { field: 'm', value: 25 }
       });
 
-      expect(newState.dirtySinceCalc).toBe(true);
+      expect(newState.dirtySinceCalc).toBe(false);
     });
   });
 
@@ -285,7 +289,7 @@ describe('State management', () => {
       expect(newState.paceInputsById).toEqual({});
     });
 
-    it('should mark dirty when pace input changes and results exist', () => {
+    it('should NOT mark dirty when pace input changes (dirty flag set on blur)', () => {
       const state = {
         ...initialState,
         results: { rows: [] }
@@ -296,7 +300,7 @@ describe('State management', () => {
         payload: { splitId: 'km-1', value: '05:00' }
       });
 
-      expect(newState.dirtySinceCalc).toBe(true);
+      expect(newState.dirtySinceCalc).toBe(false);
     });
   });
 
@@ -344,8 +348,11 @@ describe('State management', () => {
   });
 
   describe('applyAction - mark dirty', () => {
-    it('should manually set dirty flag', () => {
-      const state = { ...initialState };
+    it('should set dirty flag when results exist', () => {
+      const state = {
+        ...initialState,
+        results: { rows: [] }
+      };
 
       const newState = applyAction(state, {
         type: 'MARK_DIRTY',
@@ -353,6 +360,17 @@ describe('State management', () => {
       });
 
       expect(newState.dirtySinceCalc).toBe(true);
+    });
+
+    it('should NOT set dirty flag when results do not exist', () => {
+      const state = { ...initialState };
+
+      const newState = applyAction(state, {
+        type: 'MARK_DIRTY',
+        payload: true
+      });
+
+      expect(newState.dirtySinceCalc).toBe(false);
     });
   });
 

@@ -138,6 +138,14 @@ function createInputRow(split, state, dispatch) {
     });
   });
 
+  // Mark dirty when focus leaves the input
+  paceInput.addEventListener('blur', () => {
+    dispatch({
+      type: 'MARK_DIRTY',
+      payload: true
+    });
+  });
+
   const clearButton = createElement('button', {
     type: 'button',
     dataset: { splitId: split.id }

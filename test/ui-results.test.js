@@ -142,7 +142,21 @@ describe('UI Results and Error Display', () => {
     expect(errorArea.classList.contains('visible')).toBe(false);
   });
 
-  it('should apply offending class to input rows when error has offending IDs', () => {
+  it('should apply offending class to input rows when error has offending IDs', async () => {
+    // Import deriveSplits
+    const { deriveSplits } = await import('../src/state/store.js');
+
+    // Set state to 5K
+    state = applyAction(state, {
+      type: 'SET_DISTANCE_PRESET',
+      payload: '5K'
+    });
+    state = applyAction(state, {
+      type: 'SET_UNIT',
+      payload: 'km'
+    });
+    splits = deriveSplits(state);
+
     state = applyAction(state, {
       type: 'SET_RESULTS',
       payload: {
@@ -171,10 +185,16 @@ describe('UI Results and Error Display', () => {
       }
     });
 
-    // Now change an input which should set dirty flag
+    // Now change an input
     state = applyAction(state, {
       type: 'SET_PACE_INPUT',
       payload: { splitId: 'km-1', value: '05:00' }
+    });
+
+    // Then blur (focus lost) which sets dirty flag
+    state = applyAction(state, {
+      type: 'MARK_DIRTY',
+      payload: true
     });
 
     const dispatch = () => {};

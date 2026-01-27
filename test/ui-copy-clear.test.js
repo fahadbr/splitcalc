@@ -46,7 +46,20 @@ describe('UI Copy and Clear functionality', () => {
   });
 
   describe('Copy results to input', () => {
-    it('should fill only blank inputs with calculated paces', () => {
+    it('should fill only blank inputs with calculated paces', async () => {
+    // Set unit to km
+    const unit = document.getElementById('unit');
+    unit.value = 'km';
+    unit.dispatchEvent(new window.Event('change', { bubbles: true }));
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+
+      // Set distance to 5K
+      const distancePreset = document.getElementById('distance-preset');
+      distancePreset.value = '5K';
+      distancePreset.dispatchEvent(new window.Event('change', { bubbles: true }));
+      await new Promise(resolve => setTimeout(resolve, 0));
+
       // Set goal time
       const goalMinutes = document.getElementById('goal-minutes');
       goalMinutes.value = '25';
@@ -82,7 +95,20 @@ describe('UI Copy and Clear functionality', () => {
       expect(updatedInputs[4].value).toBe('05:00');
     });
 
-    it('should mark dirty after copying results', () => {
+    it('should mark dirty after copying results', async () => {
+    // Set unit to km
+    const unit = document.getElementById('unit');
+    unit.value = 'km';
+    unit.dispatchEvent(new window.Event('change', { bubbles: true }));
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+
+      // Set distance to 5K
+      const distancePreset = document.getElementById('distance-preset');
+      distancePreset.value = '5K';
+      distancePreset.dispatchEvent(new window.Event('change', { bubbles: true }));
+      await new Promise(resolve => setTimeout(resolve, 0));
+
       // Calculate
       const goalMinutes = document.getElementById('goal-minutes');
       goalMinutes.value = '25';
@@ -147,8 +173,21 @@ describe('UI Copy and Clear functionality', () => {
       expect(dirtyWarning.classList.contains('visible')).toBe(true);
     });
 
-    it('should not update persisted state until next Calculate', () => {
+    it('should not update persisted state until next Calculate', async () => {
       localStorage.clear();
+
+    // Set unit to km
+    const unit = document.getElementById('unit');
+    unit.value = 'km';
+    unit.dispatchEvent(new window.Event('change', { bubbles: true }));
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+
+      // Set distance to 5K
+      const distancePreset = document.getElementById('distance-preset');
+      distancePreset.value = '5K';
+      distancePreset.dispatchEvent(new window.Event('change', { bubbles: true }));
+      await new Promise(resolve => setTimeout(resolve, 0));
 
       // Set inputs and calculate
       const goalMinutes = document.getElementById('goal-minutes');
@@ -183,7 +222,20 @@ describe('UI Copy and Clear functionality', () => {
   });
 
   describe('Enter key to calculate', () => {
-    it('should trigger calculation when Enter is pressed in an input field', () => {
+    it('should trigger calculation when Enter is pressed in an input field', async () => {
+    // Set unit to km
+    const unit = document.getElementById('unit');
+    unit.value = 'km';
+    unit.dispatchEvent(new window.Event('change', { bubbles: true }));
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+
+      // Set distance to 5K
+      const distancePreset = document.getElementById('distance-preset');
+      distancePreset.value = '5K';
+      distancePreset.dispatchEvent(new window.Event('change', { bubbles: true }));
+      await new Promise(resolve => setTimeout(resolve, 0));
+
       // Set goal time
       const goalMinutes = document.getElementById('goal-minutes');
       goalMinutes.value = '25';

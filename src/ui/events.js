@@ -48,6 +48,9 @@ export function wireEvents(dispatch) {
         payload: { field: 'h', value: e.target.value }
       });
     });
+    controls.goalHours.addEventListener('blur', () => {
+      dispatch({ type: 'MARK_DIRTY', payload: true });
+    });
   }
 
   if (controls.goalMinutes) {
@@ -57,6 +60,9 @@ export function wireEvents(dispatch) {
         payload: { field: 'm', value: e.target.value }
       });
     });
+    controls.goalMinutes.addEventListener('blur', () => {
+      dispatch({ type: 'MARK_DIRTY', payload: true });
+    });
   }
 
   if (controls.goalSeconds) {
@@ -65,6 +71,9 @@ export function wireEvents(dispatch) {
         type: 'SET_GOAL_TIME_FIELD',
         payload: { field: 's', value: e.target.value }
       });
+    });
+    controls.goalSeconds.addEventListener('blur', () => {
+      dispatch({ type: 'MARK_DIRTY', payload: true });
     });
   }
 

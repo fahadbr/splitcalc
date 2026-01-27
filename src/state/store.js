@@ -123,20 +123,13 @@ export function applyAction(state, action) {
     }
 
     case 'SET_GOAL_TIME_FIELD': {
-      const newState = {
+      return {
         ...state,
         goalTime: {
           ...state.goalTime,
           [action.payload.field]: action.payload.value
         }
       };
-
-      // Mark dirty if results exist
-      if (state.results) {
-        newState.dirtySinceCalc = true;
-      }
-
-      return newState;
     }
 
     case 'SET_STRATEGY': {
@@ -154,20 +147,13 @@ export function applyAction(state, action) {
     }
 
     case 'SET_PACE_INPUT': {
-      const newState = {
+      return {
         ...state,
         paceInputsById: {
           ...state.paceInputsById,
           [action.payload.splitId]: action.payload.value
         }
       };
-
-      // Mark dirty if results exist
-      if (state.results) {
-        newState.dirtySinceCalc = true;
-      }
-
-      return newState;
     }
 
     case 'CLEAR_PACE_INPUT': {
@@ -212,6 +198,10 @@ export function applyAction(state, action) {
     }
 
     case 'MARK_DIRTY': {
+      // Only mark dirty if results exist
+      if (!state.results) {
+        return state;
+      }
       return {
         ...state,
         dirtySinceCalc: action.payload

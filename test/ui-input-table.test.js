@@ -44,7 +44,19 @@ describe('UI Input Table', () => {
     initializeApp();
   });
 
-  it('should render input table with correct number of rows for 5K', () => {
+  it('should render input table with correct number of rows for 5K', async () => {
+    // Set unit to km
+    const unit = document.getElementById('unit');
+    unit.value = 'km';
+    unit.dispatchEvent(new window.Event('change', { bubbles: true }));
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    // Set distance to 5K
+    const distancePreset = document.getElementById('distance-preset');
+    distancePreset.value = '5K';
+    distancePreset.dispatchEvent(new window.Event('change', { bubbles: true }));
+    await new Promise(resolve => setTimeout(resolve, 0));
+
     const inputTable = document.querySelector('#input-table-root table');
     expect(inputTable).toBeTruthy();
 
@@ -55,7 +67,19 @@ describe('UI Input Table', () => {
     expect(rows.length).toBe(5);
   });
 
-  it('should render pace inputs for each split', () => {
+  it('should render pace inputs for each split', async () => {
+    // Set unit to km
+    const unit = document.getElementById('unit');
+    unit.value = 'km';
+    unit.dispatchEvent(new window.Event('change', { bubbles: true }));
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    // Set distance to 5K
+    const distancePreset = document.getElementById('distance-preset');
+    distancePreset.value = '5K';
+    distancePreset.dispatchEvent(new window.Event('change', { bubbles: true }));
+    await new Promise(resolve => setTimeout(resolve, 0));
+
     const paceInputs = document.querySelectorAll('#input-table-root input[type="text"]');
 
     // 5K should have 5 pace inputs
@@ -66,14 +90,38 @@ describe('UI Input Table', () => {
     });
   });
 
-  it('should render clear buttons for each split', () => {
+  it('should render clear buttons for each split', async () => {
+    // Set unit to km
+    const unit = document.getElementById('unit');
+    unit.value = 'km';
+    unit.dispatchEvent(new window.Event('change', { bubbles: true }));
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    // Set distance to 5K
+    const distancePreset = document.getElementById('distance-preset');
+    distancePreset.value = '5K';
+    distancePreset.dispatchEvent(new window.Event('change', { bubbles: true }));
+    await new Promise(resolve => setTimeout(resolve, 0));
+
     const clearButtons = document.querySelectorAll('#input-table-root button');
 
     // 5K should have 5 clear buttons
     expect(clearButtons.length).toBe(5);
   });
 
-  it('should display split labels', () => {
+  it('should display split labels', async () => {
+    // Set unit to km
+    const unit = document.getElementById('unit');
+    unit.value = 'km';
+    unit.dispatchEvent(new window.Event('change', { bubbles: true }));
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    // Set distance to 5K
+    const distancePreset = document.getElementById('distance-preset');
+    distancePreset.value = '5K';
+    distancePreset.dispatchEvent(new window.Event('change', { bubbles: true }));
+    await new Promise(resolve => setTimeout(resolve, 0));
+
     const labels = document.querySelectorAll('#input-table-root .split-label');
 
     expect(labels.length).toBe(5);
@@ -122,12 +170,19 @@ describe('UI Input Table', () => {
     });
   });
 
-  it('should update number of rows when distance preset changes', () => {
+  it('should update number of rows when distance preset changes', async () => {
+    // Set unit to km first
+    const unit = document.getElementById('unit');
+    unit.value = 'km';
+    unit.dispatchEvent(new window.Event('change', { bubbles: true }));
+    await new Promise(resolve => setTimeout(resolve, 0));
+
     const distanceSelect = document.getElementById('distance-preset');
 
     // Change to 10K
     distanceSelect.value = '10K';
     distanceSelect.dispatchEvent(new window.Event('change', { bubbles: true }));
+    await new Promise(resolve => setTimeout(resolve, 0));
 
     const rows = document.querySelectorAll('#input-table-root tbody tr');
     expect(rows.length).toBe(10);
