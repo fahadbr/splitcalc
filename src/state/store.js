@@ -10,10 +10,10 @@ import { resolveDistance } from '../domain/distance.js';
  * Initial application state
  */
 export const initialState = {
-  distancePresetKey: '5K',
+  distancePresetKey: 'Half',
   customDistanceValue: null,
-  unit: 'km',
-  goalTime: { h: 0, m: 0, s: 0 },
+  unit: 'mi',
+  goalTime: { h: '', m: '', s: '' },
   strategyKey: 'even',
   paceInputsById: {},
   results: null,

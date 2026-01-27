@@ -39,15 +39,15 @@ function renderControls(state) {
   }
 
   if (controls.goalHours) {
-    controls.goalHours.value = state.goalTime.h || 0;
+    controls.goalHours.value = state.goalTime.h;
   }
 
   if (controls.goalMinutes) {
-    controls.goalMinutes.value = state.goalTime.m || 0;
+    controls.goalMinutes.value = state.goalTime.m;
   }
 
   if (controls.goalSeconds) {
-    controls.goalSeconds.value = state.goalTime.s || 0;
+    controls.goalSeconds.value = state.goalTime.s;
   }
 
   if (controls.strategy) {
