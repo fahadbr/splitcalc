@@ -49,6 +49,18 @@ export function formatHMS(totalSeconds) {
   return `${hours}:${mm}:${ss}`;
 }
 
+export function decomposeSeconds(totalSeconds) {
+  const total = Math.max(0, Math.floor(totalSeconds));
+  const h = Math.floor(total / 3600);
+  const m = Math.floor((total % 3600) / 60);
+  const s = total % 60;
+  return {
+    h: h > 0 ? String(h) : '',
+    m: String(m),
+    s: s > 0 ? String(s) : ''
+  };
+}
+
 /**
  * Parse pace string in MM:SS format
  * @param {string} paceStr - Pace string (e.g., "8:30")

@@ -166,6 +166,31 @@ describe('State management', () => {
     });
   });
 
+  describe('applyAction - SET_GOAL_TIME', () => {
+    it('should set entire goal time atomically', () => {
+      const state = { ...initialState };
+
+      const newState = applyAction(state, {
+        type: 'SET_GOAL_TIME',
+        payload: { h: '1', m: '30', s: '' }
+      });
+
+      expect(newState.goalTime).toEqual({ h: '1', m: '30', s: '' });
+    });
+
+    it('should not mutate original state', () => {
+      const state = { ...initialState };
+      const originalGoalTime = { ...state.goalTime };
+
+      applyAction(state, {
+        type: 'SET_GOAL_TIME',
+        payload: { h: '2', m: '0', s: '0' }
+      });
+
+      expect(state.goalTime).toEqual(originalGoalTime);
+    });
+  });
+
   describe('applyAction - goal time', () => {
     it('should update goal time field', () => {
       const state = { ...initialState };

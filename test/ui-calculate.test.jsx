@@ -2,6 +2,7 @@ import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../src/App.jsx';
+import { expandInputTable } from './helpers.js';
 
 describe('UI Calculate Button and Persistence', () => {
   beforeEach(() => {
@@ -35,6 +36,7 @@ describe('UI Calculate Button and Persistence', () => {
     await user.clear(screen.getByLabelText('Goal Time - Minutes'));
     await user.type(screen.getByLabelText('Goal Time - Minutes'), '10');
 
+    expandInputTable();
     const paceInputs = container.querySelectorAll('#input-table-root input[type="text"]');
     for (const input of paceInputs) {
       await user.clear(input);
@@ -83,6 +85,7 @@ describe('UI Calculate Button and Persistence', () => {
     await user.clear(screen.getByLabelText('Goal Time - Minutes'));
     await user.type(screen.getByLabelText('Goal Time - Minutes'), '25');
 
+    expandInputTable();
     const paceInputs = container.querySelectorAll('#input-table-root input[type="text"]');
     await user.type(paceInputs[0], '04:50');
     await user.type(paceInputs[2], '05:10');

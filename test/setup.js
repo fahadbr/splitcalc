@@ -17,6 +17,22 @@ const localStorageMock = {
 
 Object.defineProperty(globalThis, 'localStorage', { value: localStorageMock, writable: true });
 
+Object.defineProperty(window, 'matchMedia', {
+  writable: true,
+  value: (query) => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: () => {},
+    removeListener: () => {},
+    addEventListener: () => {},
+    removeEventListener: () => {},
+    dispatchEvent: () => {},
+  }),
+});
+
+Element.prototype.scrollIntoView = () => {};
+
 afterEach(() => {
   localStorageMock.clear();
 });

@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../src/App.jsx';
+import { expandInputTable } from './helpers.js';
 
 describe('UI Results and Error Display', () => {
   it('should show placeholder text when no results exist', () => {
@@ -41,6 +42,7 @@ describe('UI Results and Error Display', () => {
     await user.clear(screen.getByLabelText('Goal Time - Minutes'));
     await user.type(screen.getByLabelText('Goal Time - Minutes'), '10');
 
+    expandInputTable();
     const paceInputs = container.querySelectorAll('#input-table-root input[type="text"]');
     for (const input of paceInputs) {
       await user.clear(input);
@@ -78,6 +80,7 @@ describe('UI Results and Error Display', () => {
     await user.clear(screen.getByLabelText('Goal Time - Minutes'));
     await user.type(screen.getByLabelText('Goal Time - Minutes'), '10');
 
+    expandInputTable();
     const paceInputs = container.querySelectorAll('#input-table-root input[type="text"]');
     for (const input of paceInputs) {
       await user.clear(input);
@@ -105,6 +108,7 @@ describe('UI Results and Error Display', () => {
     const dirtyWarning = container.querySelector('#dirty-warning');
     expect(dirtyWarning.classList.contains('visible')).toBe(false);
 
+    expandInputTable();
     const paceInputs = container.querySelectorAll('#input-table-root input[type="text"]');
     await user.type(paceInputs[0], '05:00');
     fireEvent.blur(paceInputs[0]);
@@ -128,6 +132,7 @@ describe('UI Results and Error Display', () => {
 
     await user.click(screen.getByRole('button', { name: 'Calculate' }));
 
+    expandInputTable();
     const paceInputs = container.querySelectorAll('#input-table-root input[type="text"]');
     await user.type(paceInputs[0], '05:00');
     fireEvent.blur(paceInputs[0]);

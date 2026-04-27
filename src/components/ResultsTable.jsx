@@ -1,10 +1,15 @@
-export default function ResultsTable({ results }) {
-  if (!results) {
-    return <p>Results will appear here after calculation</p>;
-  }
-
+export default function ResultsTable({ results, averagePace, unit }) {
   return (
-    <table>
+    <>
+      {averagePace && (
+        <div className="average-pace">
+          Overall Average Pace: {averagePace} /{unit}
+        </div>
+      )}
+      {!results ? (
+        <p>Results will appear here after calculation</p>
+      ) : (
+        <table>
       <thead>
         <tr>
           <th>Split</th>
@@ -24,5 +29,7 @@ export default function ResultsTable({ results }) {
         ))}
       </tbody>
     </table>
+      )}
+    </>
   );
 }

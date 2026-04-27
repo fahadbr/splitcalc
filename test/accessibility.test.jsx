@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import App from '../src/App.jsx';
+import { expandInputTable } from './helpers.js';
 
 describe('Accessibility', () => {
   it('should have proper labels for all form controls', () => {
@@ -72,7 +73,9 @@ describe('Accessibility', () => {
   it('should have table containers for dynamic content', () => {
     const { container } = render(<App />);
 
-    expect(container.querySelector('#input-table-root')).toBeTruthy();
     expect(container.querySelector('#results-table-root')).toBeTruthy();
+
+    expandInputTable();
+    expect(container.querySelector('#input-table-root')).toBeTruthy();
   });
 });

@@ -4,7 +4,8 @@ import {
   formatHMS,
   parsePace,
   formatPace,
-  roundToNearestSecond
+  roundToNearestSecond,
+  decomposeSeconds
 } from '../src/engine/time.js';
 
 describe('Time utilities', () => {
@@ -123,6 +124,38 @@ describe('Time utilities', () => {
     it('should handle large values', () => {
       expect(formatPace(3600)).toBe('60:00');
       expect(formatPace(5999)).toBe('99:59');
+    });
+  });
+
+  describe('decomposeSeconds', () => {
+    it('should decompose total seconds into h, m, s strings', () => {
+      const result = decomposeSeconds(3661);
+      expect(result).toEqual({ h: '1', m: '1', s: '1' });
+    });
+
+    it('should omit h and s when zero', () => {
+      expect(decomposeSeconds(300)).toEqual({ h: '', m: '5', s: '' });
+      expect(decomposeSeconds(3600)).toEqual({ h: '1', m: '0', s: '' });
+    });
+
+    it('should handle zero', () => {
+      expect(decomposeSeconds(0)).toEqual({ h: '', m: '0', s: '' });
+    });
+
+    it('should floor fractional seconds', () => {
+      expect(decomposeSeconds(61.9)).toEqual({ h: '', m: '1', s: '1' });
+    });
+
+    it('should handle negative values as zero', () => {
+      expect(decomposeSeconds(-100)).toEqual({ h: '', m: '0', s: '' });
+    });
+
+    it('should round-trip with toSeconds', () => {
+      const values = [0, 60, 300, 3600, 3661, 5400, 7200, 23580];
+      values.forEach(v => {
+        const decomposed = decomposeSeconds(v);
+        expect(toSeconds(decomposed)).toBe(v);
+      });
     });
   });
 

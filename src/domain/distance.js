@@ -22,6 +22,13 @@ export const PRESETS = {
   }
 };
 
+export const SLIDER_RANGES = {
+  '5K':   { min: 720,   max: 2820  },
+  '10K':  { min: 1500,  max: 5580  },
+  'Half': { min: 3120,  max: 11820 },
+  'Full': { min: 6300,  max: 23580 },
+};
+
 /**
  * Get the distance value for a preset in the specified unit
  * @param {string} presetKey - One of '5K', '10K', 'Half', 'Full'

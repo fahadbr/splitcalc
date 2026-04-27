@@ -1,6 +1,8 @@
+import { useState, useMemo, useRef } from 'react';
 import { useAppState } from './hooks/useAppState.js';
 import { calculateSplits } from './engine/calculate.js';
-import { toSeconds } from './engine/time.js';
+import { toSeconds, formatPace } from './engine/time.js';
+import { resolveDistance } from './domain/distance.js';
 import { savePersistedState, createStateSnapshot } from './persistence/storage.js';
 import ControlsPanel from './components/ControlsPanel.jsx';
 import InputTable from './components/InputTable.jsx';
@@ -8,6 +10,20 @@ import ResultsTable from './components/ResultsTable.jsx';
 
 export default function App() {
   const { state, splits, dispatch } = useAppState();
+  const [inputTableVisible, setInputTableVisible] = useState(false);
+  const resultsRef = useRef(null);
+
+  const averagePace = useMemo(() => {
+    try {
+      const goalSeconds = toSeconds(state.goalTime);
+      if (goalSeconds <= 0) return null;
+      const distance = resolveDistance(state.distancePresetKey, state.customDistanceValue, state.unit);
+      if (!distance || distance <= 0) return null;
+      return formatPace(goalSeconds / distance);
+    } catch {
+      return null;
+    }
+  }, [state.goalTime, state.distancePresetKey, state.customDistanceValue, state.unit]);
 
   function handleCalculate() {
     try {
@@ -28,6 +44,10 @@ export default function App() {
       if (result.ok) {
         dispatch({ type: 'SET_RESULTS', payload: { results: result, error: null, offendingIds: [] } });
         savePersistedState(createStateSnapshot(state));
+        setTimeout(() => {
+          const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          resultsRef.current?.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
+        }, 0);
       } else {
         dispatch({ type: 'SET_RESULTS', payload: { results: null, error: result.errorMessage, offendingIds: result.offendingIds } });
       }
@@ -104,16 +124,26 @@ export default function App() {
         <section className="tables-section">
           <div className="table-container">
             <div className="table-wrapper">
-              <h3>Input Table</h3>
-              <div id="input-table-root">
-                <InputTable splits={splits} state={state} dispatch={dispatch} />
-              </div>
+              <button
+                type="button"
+                className="toggle-btn"
+                onClick={() => setInputTableVisible(v => !v)}
+                aria-expanded={inputTableVisible}
+                aria-controls="input-table-root"
+              >
+                <h3>Pace Input Table {inputTableVisible ? '\u25B2' : '\u25BC'}</h3>
+              </button>
+              {inputTableVisible && (
+                <div id="input-table-root">
+                  <InputTable splits={splits} state={state} dispatch={dispatch} />
+                </div>
+              )}
             </div>
 
-            <div className="table-wrapper">
+            <div className="table-wrapper" ref={resultsRef}>
               <h3>Results</h3>
               <div id="results-table-root">
-                <ResultsTable results={state.results} />
+                <ResultsTable results={state.results} averagePace={averagePace} unit={state.unit} />
               </div>
             </div>
           </div>

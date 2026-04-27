@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import App from '../src/App.jsx';
+import { expandInputTable } from './helpers.js';
 
 describe('UI Shell', () => {
   it('should have all required control elements', () => {
@@ -38,8 +39,10 @@ describe('UI Shell', () => {
 
     expect(container.querySelector('#error-message')).toBeTruthy();
     expect(container.querySelector('#dirty-warning')).toBeTruthy();
-    expect(container.querySelector('#input-table-root')).toBeTruthy();
     expect(container.querySelector('#results-table-root')).toBeTruthy();
+
+    expandInputTable();
+    expect(container.querySelector('#input-table-root')).toBeTruthy();
   });
 
   it('should have custom distance input disabled by default', () => {

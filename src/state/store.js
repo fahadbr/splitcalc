@@ -122,6 +122,13 @@ export function applyAction(state, action) {
       return newState;
     }
 
+    case 'SET_GOAL_TIME': {
+      return {
+        ...state,
+        goalTime: action.payload
+      };
+    }
+
     case 'SET_GOAL_TIME_FIELD': {
       return {
         ...state,

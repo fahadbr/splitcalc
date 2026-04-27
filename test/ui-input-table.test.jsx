@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../src/App.jsx';
+import { expandInputTable } from './helpers.js';
 
 describe('UI Input Table', () => {
   function selectDistance(preset) {
@@ -17,6 +18,7 @@ describe('UI Input Table', () => {
 
     selectUnit('km');
     selectDistance('5K');
+    expandInputTable();
 
     const rows = container.querySelectorAll('#input-table-root tbody tr');
     expect(rows.length).toBe(5);
@@ -27,6 +29,7 @@ describe('UI Input Table', () => {
 
     selectUnit('km');
     selectDistance('5K');
+    expandInputTable();
 
     const paceInputs = container.querySelectorAll('#input-table-root input[type="text"]');
     expect(paceInputs.length).toBe(5);
@@ -41,6 +44,7 @@ describe('UI Input Table', () => {
 
     selectUnit('km');
     selectDistance('5K');
+    expandInputTable();
 
     const clearButtons = container.querySelectorAll('#input-table-root button');
     expect(clearButtons.length).toBe(5);
@@ -51,6 +55,7 @@ describe('UI Input Table', () => {
 
     selectUnit('km');
     selectDistance('5K');
+    expandInputTable();
 
     const labels = container.querySelectorAll('#input-table-root .split-label');
     expect(labels.length).toBe(5);
@@ -61,6 +66,7 @@ describe('UI Input Table', () => {
   it('should update input value when user types', async () => {
     const { container } = render(<App />);
     const user = userEvent.setup();
+    expandInputTable();
 
     const paceInputs = container.querySelectorAll('#input-table-root input[type="text"]');
     await user.type(paceInputs[0], '05:30');
@@ -71,6 +77,7 @@ describe('UI Input Table', () => {
   it('should clear input when clear button is clicked', async () => {
     const { container } = render(<App />);
     const user = userEvent.setup();
+    expandInputTable();
 
     const paceInputs = container.querySelectorAll('#input-table-root input[type="text"]');
     await user.type(paceInputs[0], '05:30');
@@ -84,6 +91,7 @@ describe('UI Input Table', () => {
 
   it('should not apply offending class initially', () => {
     const { container } = render(<App />);
+    expandInputTable();
 
     const rows = container.querySelectorAll('#input-table-root tbody tr');
     rows.forEach(row => {
@@ -96,6 +104,7 @@ describe('UI Input Table', () => {
 
     selectUnit('km');
     selectDistance('10K');
+    expandInputTable();
 
     const rows = container.querySelectorAll('#input-table-root tbody tr');
     expect(rows.length).toBe(10);

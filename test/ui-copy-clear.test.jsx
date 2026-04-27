@@ -2,6 +2,7 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../src/App.jsx';
+import { expandInputTable } from './helpers.js';
 
 describe('UI Copy and Clear functionality', () => {
   beforeEach(() => {
@@ -20,6 +21,7 @@ describe('UI Copy and Clear functionality', () => {
 
       await user.click(screen.getByRole('button', { name: 'Calculate' }));
 
+      expandInputTable();
       const paceInputs = container.querySelectorAll('#input-table-root input[type="text"]');
       await user.clear(paceInputs[0]);
       await user.type(paceInputs[0], '04:30');
@@ -58,6 +60,7 @@ describe('UI Copy and Clear functionality', () => {
     it('should clear all pace inputs', async () => {
       const { container } = render(<App />);
       const user = userEvent.setup();
+      expandInputTable();
 
       const paceInputs = container.querySelectorAll('#input-table-root input[type="text"]');
       await user.type(paceInputs[0], '05:00');
@@ -94,6 +97,7 @@ describe('UI Copy and Clear functionality', () => {
       await user.clear(screen.getByLabelText('Goal Time - Minutes'));
       await user.type(screen.getByLabelText('Goal Time - Minutes'), '25');
 
+      expandInputTable();
       const paceInputs = container.querySelectorAll('#input-table-root input[type="text"]');
       await user.type(paceInputs[0], '05:00');
 
@@ -124,6 +128,7 @@ describe('UI Copy and Clear functionality', () => {
       await user.clear(screen.getByLabelText('Goal Time - Minutes'));
       await user.type(screen.getByLabelText('Goal Time - Minutes'), '25');
 
+      expandInputTable();
       const paceInput = container.querySelectorAll('#input-table-root input[type="text"]')[0];
       paceInput.focus();
       fireEvent.keyDown(paceInput, { key: 'Enter', bubbles: true });

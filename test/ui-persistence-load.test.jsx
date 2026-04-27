@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import App from '../src/App.jsx';
+import { expandInputTable } from './helpers.js';
 
 describe('Persistence load on boot', () => {
   beforeEach(() => {
@@ -21,6 +22,7 @@ describe('Persistence load on boot', () => {
 
     expect(screen.getByLabelText('Distance').value).toBe('10K');
 
+    expandInputTable();
     const rows = container.querySelectorAll('#input-table-root tbody tr');
     expect(rows.length).toBe(10);
   });
@@ -73,6 +75,7 @@ describe('Persistence load on boot', () => {
     }));
 
     const { container } = render(<App />);
+    expandInputTable();
 
     const paceInputs = container.querySelectorAll('#input-table-root input[type="text"]');
     expect(paceInputs[0].value).toBe('04:50');
@@ -98,6 +101,7 @@ describe('Persistence load on boot', () => {
     expect(screen.getByLabelText('Custom Distance')).not.toBeDisabled();
     expect(screen.getByLabelText('Custom Distance').value).toBe('7.5');
 
+    expandInputTable();
     const rows = container.querySelectorAll('#input-table-root tbody tr');
     expect(rows.length).toBe(8);
   });
@@ -116,6 +120,7 @@ describe('Persistence load on boot', () => {
     }));
 
     const { container } = render(<App />);
+    expandInputTable();
 
     const initialInputs = container.querySelectorAll('#input-table-root input[type="text"]');
     expect(initialInputs[0].value).toBe('05:00');

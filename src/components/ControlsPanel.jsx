@@ -1,4 +1,17 @@
+import { SLIDER_RANGES } from '../domain/distance.js';
+import { toSeconds, decomposeSeconds, formatHMS } from '../engine/time.js';
+
 export default function ControlsPanel({ state, dispatch }) {
+  const sliderRange = SLIDER_RANGES[state.distancePresetKey];
+  const sliderDisabled = !sliderRange;
+  const goalSeconds = toSeconds(state.goalTime);
+
+  function handleSliderChange(e) {
+    const totalSeconds = Number(e.target.value);
+    dispatch({ type: 'SET_GOAL_TIME', payload: decomposeSeconds(totalSeconds) });
+    dispatch({ type: 'CLEAR_ALL_PACES' });
+  }
+
   return (
     <>
       <div className="controls-group">
@@ -89,6 +102,24 @@ export default function ControlsPanel({ state, dispatch }) {
             value={state.goalTime.s}
             onChange={e => dispatch({ type: 'SET_GOAL_TIME_FIELD', payload: { field: 's', value: e.target.value } })}
             onBlur={() => dispatch({ type: 'MARK_DIRTY', payload: true })}
+          />
+        </div>
+      </div>
+
+      <div className="controls-group">
+        <div className="control slider-control">
+          <label htmlFor="goal-slider">
+            Goal Time Slider{sliderRange ? ` (${formatHMS(sliderRange.min)} – ${formatHMS(sliderRange.max)})` : ''}
+          </label>
+          <input
+            type="range"
+            id="goal-slider"
+            min={sliderRange?.min ?? 0}
+            max={sliderRange?.max ?? 0}
+            step="60"
+            value={sliderDisabled ? 0 : goalSeconds}
+            disabled={sliderDisabled}
+            onChange={handleSliderChange}
           />
         </div>
       </div>
