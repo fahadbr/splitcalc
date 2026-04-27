@@ -1,11 +1,15 @@
 import js from '@eslint/js';
 
 export default [
+  { ignores: ['dist/**'] },
   js.configs.recommended,
   {
     languageOptions: {
       ecmaVersion: 2022,
       sourceType: 'module',
+      parserOptions: {
+        ecmaFeatures: { jsx: true }
+      },
       globals: {
         global: 'writable',
         console: 'readonly',
@@ -39,16 +43,7 @@ export default [
         HTMLTableRowElement: 'readonly',
         HTMLTableCellElement: 'readonly',
         MessageChannel: 'readonly',
-        MessagePort: 'readonly',
-        caches: 'readonly',
-        Cache: 'readonly',
-        CacheStorage: 'readonly',
-        ServiceWorkerGlobalScope: 'readonly',
-        self: 'readonly',
-        clients: 'readonly',
-        Clients: 'readonly',
-        skipWaiting: 'readonly',
-        importScripts: 'readonly'
+        MessagePort: 'readonly'
       }
     },
     rules: {
